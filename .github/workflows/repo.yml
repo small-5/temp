@@ -1,0 +1,39 @@
+name: Repo Dispatcher
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      REPO_TOKEN: ${{secrets.REPO_TOKEN}}
+
+    steps:
+    - name: Trigger Compile
+      run: |
+        curl -Lfs \
+        -X POST https://api.github.com/repos/${{github.repository}}/dispatches \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        -H "Authorization: token $REPO_TOKEN" \
+        -d '{"event_type": "X64", "client_payload": {"target": "X64"}}' && echo "X64 Success!" || echo "X64 Failed!"
+        curl -Lfs \
+        -X POST https://api.github.com/repos/${{github.repository}}/dispatches \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        -H "Authorization: token $REPO_TOKEN" \
+        -d '{"event_type": "AC58U", "client_payload": {"target": "AC58U"}}' && echo "AC58U Success!" || echo "AC58U Failed!"
+        curl -Lfs \
+        -X POST https://api.github.com/repos/${{github.repository}}/dispatches \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        -H "Authorization: token $REPO_TOKEN" \
+        -d '{"event_type": "R7800", "client_payload": {"target": "R7800"}}' && echo "R7800 Success!" || echo "R7800 Failed!"
+        curl -Lfs \
+        -X POST https://api.github.com/repos/${{github.repository}}/dispatches \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        -H "Authorization: token $REPO_TOKEN" \
+        -d '{"event_type": "K2P-16M", "client_payload": {"target": "K2P-16M"}}' && echo "K2P-16M Success!" || echo "K2P-16M Failed!"
+        curl -Lfs \
+        -X POST https://api.github.com/repos/${{github.repository}}/dispatches \
+        -H "Accept: application/vnd.github.everest-preview+json" \
+        -H "Authorization: token $REPO_TOKEN" \
+        -d '{"event_type": "K2P-32M", "client_payload": {"target": "K2P-32M"}}' && echo "K2P-32M Success!" || echo "K2P-32M Failed!"
