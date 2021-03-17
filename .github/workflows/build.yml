@@ -97,9 +97,9 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         find ! -name '*squashfs*' ! -name '.' | xargs rm -rf
-        rm -f *rootfs*
+        [ $OP_TARGET = N1 ] || rm -f *rootfs*
         for i in $(ls | grep squashfs);do if echo $i | grep efi;then mv $i "openwrt-${VERSION#*_}-${DEVICE_NAME#*_}-squashfs-efi.${i#*.}";else mv $i "openwrt-${VERSION#*_}-${DEVICE_NAME#*_}-squashfs.${i#*.}";fi;done
-        echo "IP:192.168.6.1" > "默认IP与sha256.txt"
+        echo "IP:10.0.0.1" > "默认IP与sha256.txt"
         echo "" >> "默认IP与sha256.txt"
         sha256sum openwrt* >> "默认IP与sha256.txt"
         [ "$(cat ../../../../DEVICE_NAME)" = phicomm_k2p ] && cp ../../../packages/*/base/xray* $PWD && cp ../../../packages/*/packages/xray* $PWD
